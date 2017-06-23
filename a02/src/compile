@@ -1,31 +1,13 @@
 #!/bin/sh
 
-BIBAUTHOR=bibauthor
-BIBMAINT=bibmaint
-UTILFILE=util
-DATABASE=cs348
-
-DB2HOME=`eval echo ~"$DB2INSTANCE"`
-DB2PATH="$DB2HOME"/sqllib
-
-CC=gcc
-CFLAGS="-I$DB2PATH/include"
-LIBS="-L$DB2PATH/lib -ldb2"
-
-set -x
-
-rm -f "$BIBAUTHOR" "$BIBAUTHOR".c "$BIBAUTHOR".o "$BIBAUTHOR".bnd
-rm -f "$BIBMAINT" "$BIBMAINT".c "$BIBMAINT".o "$BIBMAINT".bnd
-rm -f "$UTILFILE" "$UTILFILE".o "$UTILFILE".bnd
-
-db2 connect to "$DATABASE"
-db2 prep "$BIBAUTHOR".sqc bindfile
-db2 prep "$BIBMAINT".sqc bindfile
-db2 bind "$BIBAUTHOR".bnd
-db2 bind "$BIBMAINT".bnd
-db2 connect reset
-"$CC" "$CFLAGS" -c "$UTILFILE".c
-"$CC" "$CFLAGS" -c "$BIBAUTHOR".c
-"$CC" "$CFLAGS" -c "$BIBMAINT".c
-"$CC" "$CFLAGS" -o "$BIBAUTHOR" "$BIBAUTHOR".o "$UTILFILE".o $LIBS
-"$CC" "$CFLAGS" -o "$BIBMAINT" "$BIBMAINT".o "$UTILFILE".o $LIBS
+db2 connect to cs348
+db2 prep bibauthorsummary.sqc bindfile
+db2 bind bibauthorsummary.bnd
+gcc -I/home/db2inst2/sqllib/include -c bibauthorsummary.c
+gcc -I/home/db2inst2/sqllib/include -c util.c
+gcc -I/home/db2inst2/sqllib/include -o bibauthorsummary bibauthorsummary.o util.o -L/home/db2inst2/sqllib/lib -ldb2
+db2 prep bibmaint.sqc bindfile
+db2 bind bibmaint.bnd
+gcc -I/home/db2inst2/sqllib/include -c bibmaint.c
+gcc -I/home/db2inst2/sqllib/include -c util.c
+gcc -I/home/db2inst2/sqllib/include -o bibmaint bibmaint.o util.o -L/home/db2inst2/sqllib/lib -ldb2
