@@ -186,11 +186,11 @@ void update_article(){
 	endpage = atoi(strtok(NULL,"#"));
 
 	EXEC SQL
-        select count(*) INTO :exists
+        select count(*) INTO :exist
         from article art
         where art.pubid = :pubid;
 
-    if(exists) {
+    if(exist) {
         EXEC SQL
             update article
             set appearsin = :appearsin, startpage = :startpage, endpage = :endpage
