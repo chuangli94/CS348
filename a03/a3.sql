@@ -58,10 +58,12 @@ drop table enrollment
 create table enrollment ( \
 	sid			integer not null, \
 	secid		integer not null, \
+	cnum		varchar(10) not null, \
+	tid			varchar(10) not null, \
 	grade		integer not null, \
 	primary key (sid, secid), \
 	foreign key (sid) references student(id), \
-	foreign key (secid) references section(id) )
+	foreign key (secid, cnum, tid) references section(id, cnum, tid) )
 
 drop table schedule
 create table schedule ( \
@@ -70,6 +72,4 @@ create table schedule ( \
 	cnum 		varchar(10) not null, \
 	tid			varchar(10) not null, \
 	foreign key (sid) references student(id), \
-	foreign key (secid) references section(id), \
-	foreign key (cnum) references course(cnum), \
-	foreign key (tid) references term(id) )
+	foreign key (secid, cnum, tid) references section(id, cnum, tid) )
