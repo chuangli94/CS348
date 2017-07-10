@@ -14,7 +14,7 @@ create table department ( \
 	primary key (dname), \
 	foreign key (chair) references instructor(id) )
 
-drop table student
+--drop table student
 create table student ( \
 	name		varchar(20) not null, \
 	id			integer not null, \
@@ -22,7 +22,7 @@ create table student ( \
 	primary key (id),
 	foreign key (major) references department(dname) )
 
-drop table course
+----drop table course
 create table course ( \
 	name		varchar(20) not null, \
 	cnum		varchar(10) not null, \
@@ -35,7 +35,7 @@ create table term ( \
 	id			varchar(10) not null, \
 	primary key (id) )
 
-drop table section
+--drop table section
 create table section ( \
 	id			integer not null, \
 	cnum		varchar(10) not null, \
