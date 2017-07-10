@@ -43,7 +43,7 @@ create table section ( \
 	lecturer	integer not null, \
 	primary key (id, cnum, tid), \
 	foreign key (cnum) references course(cnum), \
-	foreign key (tid) references term(tid), \
+	foreign key (tid) references term(id), \
 	foreign key (lecturer) references instructor(id) )
 
 drop table offering
@@ -52,7 +52,7 @@ create table offering ( \
 	tid			varchar(10) not null, \ 
 	primary key (cnum, tid), \
 	foreign key (cnum) references course(cnum), \
-	foreign key (tid) references term(tid) )
+	foreign key (tid) references term(id) )
 
 drop table enrollment
 create table enrollment ( \
@@ -72,4 +72,4 @@ create table schedule ( \
 	foreign key (sid) references student(id), \
 	foreign key (secid) references section(id), \
 	foreign key (cnum) references course(cnum), \
-	foreign key (tid) references term(tid) )
+	foreign key (tid) references term(id) )
