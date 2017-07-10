@@ -1,13 +1,11 @@
 connect to cs348
-/*
-drop table book
-drop table author
-drop table wrote
-drop table article
-drop table proceedings
-drop table journal
-drop table publication
-*/
+
+drop table instructor
+create table instructor ( \
+	name		varchar(20) not null, \
+	id			integer not null, \
+	primary key (id) )
+
 drop table department
 create table department ( \
 	dname		varchar(20) not null, \
@@ -15,12 +13,6 @@ create table department ( \
 	chair		integer not null, \
 	primary key (dname), \
 	foreign key (chair) references instructor(id) )
-
-drop table instructor
-create table instructor ( \
-	name		varchar(20) not null, \
-	id			integer not null, \
-	primary key (id) )
 
 drop table student
 create table student ( \
